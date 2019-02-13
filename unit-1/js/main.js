@@ -109,5 +109,53 @@ function cities(cityPop){
 	$("#mydiv").append("</table>");
 };
 
+function jQueryAjax(){
+    //define a variable to hold the data
+    var mydata;
+
+    //basic jQuery ajax to access the data
+    $.ajax("data/MegaCities.geojson", {
+        dataType: "json",
+        success: function(response){
+            mydata = response;
+			
+			//data can be accessed here
+			console.log(mydata)
+        }
+    });
+
+    //data cannot be accessed here 
+    console.log(mydata);
+};
+
+//created a callback function to display the data once it is retrieved
+function debugCallback(response){
+	
+	$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
+};
+
+//create the mydata variable to hold the data
+var mydata;
+
+//create function to retrieve the geojson data 
+function debugAjax(){
+	
+	$.ajax("data/MegaCities.geojson", {
+		dataType: "json",
+		success: function(response){
+			mydata = response
+			debugCallback(mydata);			
+		}
+	});
+};
+
 //call the initialize function when the document has loaded
 $(document).ready(initialize);
+
+
+//call the jQueryAjax function when the document has loaded
+$(document).ready(jQueryAjax);
+
+
+//call the debugAjax function when the document has loaded
+$(document).ready(debugAjax);
